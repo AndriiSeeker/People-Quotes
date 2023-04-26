@@ -14,19 +14,16 @@ def main(request):
     page_obj = paginator.get_page(page_number)
 
     top_tags = Quote.objects.values('tags__name') \
-                   .annotate(quote_count=Count('tags__name')) \
-                   .order_by('-quote_count')[:10]
-    tag_name = []
-    for tag in top_tags:
-        tag_name.append(tag['tags__name'])
-    return render(request, "quotes/index.html", context={'quotes': page_obj, "top_ten_tags": tag_name})
+                    .annotate(quote_count=Count('tags__name')) \
+                    .order_by('-quote_count')[:10]
+    # tag_name = []
+    # for tag in top_tags:
+    #     tag_name.append(tag['tags__name'])
+    return render(request, "quotes/index.html", context={'quotes': page_obj, "top_ten_tags": top_tags})
 
 
 def author_about(request, _id):
-    print(_id)
     author = Author.objects.get(pk=_id)
-    print(author.fullname, type(author))
-
     return render(request, 'quotes/author.html', context={'author': author})
 
 
@@ -67,16 +64,17 @@ def add_tag(request):
 def find_by_tag(request, _id):
     per_page = 5
     quotes = Quote.objects.filter(tags=_id).all()
+
     paginator = Paginator(list(quotes), per_page)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     top_tags = Quote.objects.values('tags__name') \
-                   .annotate(quote_count=Count('tags__name')) \
-                   .order_by('-quote_count')[:10]
-    tag_name = []
-    for tag in top_tags:
-        tag_name.append(tag['tags__name'])
+                    .annotate(quote_count=Count('tags__name')) \
+                    .order_by('-quote_count')[:10]
+    # tag_name = []
+    # for tag in top_tags:
+    #     tag_name.append(tag['tags__name'])
 
     return render(request, "quotes/index.html", context={'quotes': page_obj,
-                                                         "top_ten_tags": tag_name})
+                                                         "top_ten_tags": top_tags})

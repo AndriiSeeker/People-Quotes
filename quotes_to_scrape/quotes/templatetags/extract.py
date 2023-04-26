@@ -8,8 +8,7 @@ register = template.Library()
 
 def get_author(id_):
     obj = Author.objects.filter(id=ObjectId(id_))
-    print(obj['fullname'])
-    return obj['fullname']
+    return obj['fullname'].text
 
 
 register.filter('author', get_author)

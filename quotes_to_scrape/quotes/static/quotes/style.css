@@ -34,6 +34,13 @@
     background-color: #7CA3E6;
 }
 
+.toptag {
+    padding: 2px 5px;
+    border-radius: 5px;
+    color: white;
+    font-size: small;
+    background-color: #3677E8;
+}
 
 .pager {
     font-family: "Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;

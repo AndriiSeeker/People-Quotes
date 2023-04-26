@@ -4,10 +4,11 @@ from .models import Quote, Author, Tag
 
 
 class QuoteForm(ModelForm):
-    quote = CharField(min_length=5, required=True, widget=TextInput())
-    tags = ModelMultipleChoiceField(queryset=Tag.objects.all().order_by("name"), required=True,
-                                    widget=SelectMultiple())
-    author = ModelChoiceField(queryset=Author.objects.all().order_by("fullname"), widget=Select())
+    quote = CharField(min_length=5, widget=TextInput(), required=True)
+    tags = ModelMultipleChoiceField(queryset=Tag.objects.all().order_by("name"),
+                                    widget=SelectMultiple(), required=True)
+    author = ModelChoiceField(queryset=Author.objects.all().order_by("fullname"),
+                              widget=Select(), required=True)
 
     class Meta:
         model = Quote
