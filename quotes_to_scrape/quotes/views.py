@@ -13,9 +13,9 @@ def main(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    top_tags = Quote.objects.values('tags__name') \
-                    .annotate(quote_count=Count('tags__name')) \
-                    .order_by('-quote_count')[:10]
+    top_tags = Quote.objects.values('tags__name', 'id') \
+                   .annotate(quote_count=Count('tags__name')) \
+                   .order_by('-quote_count')[:10]
     # tag_name = []
     # for tag in top_tags:
     #     tag_name.append(tag['tags__name'])
@@ -65,16 +65,29 @@ def find_by_tag(request, _id):
     per_page = 5
     quotes = Quote.objects.filter(tags=_id).all()
 
+    top_ten_tags = Quote.objects.values('tags__name') \
+                        .annotate(quote_count=Count('tags__name')) \
+                        .order_by('-quote_count')[:10]
+
     paginator = Paginator(list(quotes), per_page)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    top_tags = Quote.objects.values('tags__name') \
-                    .annotate(quote_count=Count('tags__name')) \
-                    .order_by('-quote_count')[:10]
-    # tag_name = []
-    # for tag in top_tags:
-    #     tag_name.append(tag['tags__name'])
+    return render(request, "quotes/index.html", context={'quotes': page_obj, "top_ten_tags": top_ten_tags})
 
-    return render(request, "quotes/index.html", context={'quotes': page_obj,
-                                                         "top_ten_tags": top_tags})
+
+# def top_tags(request, _id):
+#     per_page = 5
+#
+#     top_ten_tags = Quote.objects.values('tags__name') \
+#                         .annotate(quote_count=Count('tags__name')) \
+#                         .order_by('-quote_count')[:10]
+#
+#     quotes = Quote.objects.filter(tags=_id).all()
+#
+#     paginator = Paginator(list(quotes), per_page)
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
+#
+#     return render(request, "quotes/index.html", context={'quotes': page_obj,
+#                                                          "top_ten_tags": top_ten_tags})

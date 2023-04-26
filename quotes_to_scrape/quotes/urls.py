@@ -13,4 +13,5 @@ urlpatterns = [
     path('add_author/', views.add_author, name='add_author'),
     path('add_tag/', views.add_tag, name='add_tag'),
     path('tag/<int:_id>/', views.find_by_tag, name='find_by_tag'),
+    path('tag/<int:_id>/', views.top_tags, name='top_tags'),
 ]

@@ -36,7 +36,7 @@
         <h2>Top 10 Tags</h2>
         {% for tag in top_ten_tags %}
         <div class="tags">
-            <a class="tag" href="#">{{tag}}</a>
+            <a class="tag" href="{% url 'quotes:find_by_tag' tag.id %}">{{tag.tags__name}}</a>
         </div>
         {% endfor %}
 
