@@ -1,9 +1,11 @@
 from django.core.paginator import Paginator
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.shortcuts import render, redirect
+from django.http import HttpResponse,JsonResponse
 
 from .models import Author, Quote, Tag
 from .forms import QuoteForm, AuthorForm, TagForm
+from .utils.scraper import start_parse
 
 
 def main(request):
@@ -13,13 +15,9 @@ def main(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    top_tags = Quote.objects.values('tags__name', 'id') \
-                   .annotate(quote_count=Count('tags__name')) \
-                   .order_by('-quote_count')[:10]
-    # tag_name = []
-    # for tag in top_tags:
-    #     tag_name.append(tag['tags__name'])
-    return render(request, "quotes/index.html", context={'quotes': page_obj, "top_ten_tags": top_tags})
+    top_ten_tags = Quote.objects.values('tags__name').annotate(quote_count=Count('id')).order_by('-quote_count')[:10]
+
+    return render(request, "quotes/index.html", context={'quotes': page_obj, "top_ten_tags": top_ten_tags})
 
 
 def author_about(request, _id):
@@ -63,11 +61,13 @@ def add_tag(request):
 
 def find_by_tag(request, _id):
     per_page = 5
-    quotes = Quote.objects.filter(tags=_id).all()
+    if isinstance(_id, int):
+        quotes = Quote.objects.filter(tags=_id).all()
+    elif isinstance(_id, str):
+        _id = Tag.objects.filter(name=_id).first()
+        quotes = Quote.objects.filter(tags=_id.id).all()
 
-    top_ten_tags = Quote.objects.values('tags__name') \
-                        .annotate(quote_count=Count('tags__name')) \
-                        .order_by('-quote_count')[:10]
+    top_ten_tags = Quote.objects.values('tags__name').annotate(quote_count=Count('id')).order_by('-quote_count')[:10]
 
     paginator = Paginator(list(quotes), per_page)
     page_number = request.GET.get('page')
@@ -76,18 +76,19 @@ def find_by_tag(request, _id):
     return render(request, "quotes/index.html", context={'quotes': page_obj, "top_ten_tags": top_ten_tags})
 
 
-# def top_tags(request, _id):
-#     per_page = 5
-#
-#     top_ten_tags = Quote.objects.values('tags__name') \
-#                         .annotate(quote_count=Count('tags__name')) \
-#                         .order_by('-quote_count')[:10]
-#
-#     quotes = Quote.objects.filter(tags=_id).all()
-#
-#     paginator = Paginator(list(quotes), per_page)
-#     page_number = request.GET.get('page')
-#     page_obj = paginator.get_page(page_number)
-#
-#     return render(request, "quotes/index.html", context={'quotes': page_obj,
-#                                                          "top_ten_tags": top_ten_tags})
+def search_form(request):
+    if request.method == 'GET':
+        query = request.GET.get('query')
+        if query:
+            quotes = Quote.objects.filter(
+                Q(quote__contains=query)
+            )
+            return render(request, "quotes/searchbar.html", context={'quotes': quotes})
+        else:
+            return render(request, "quotes/searchbar.html", {})
+
+
+def parser(request):
+    quotes = start_parse()
+    return HttpResponse(render(request, "quotes/parser.html", context={"json_quotes": quotes}))
+

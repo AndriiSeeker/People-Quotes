@@ -18,6 +18,9 @@ class RegisterView(View):
         return render(request, self.template_name, {"form": self.form_class})
 
     def post(self, request):
+        if request.user.is_authenticated:
+            return redirect(to='quotes:home')
+
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()

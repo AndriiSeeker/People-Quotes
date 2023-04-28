@@ -3,20 +3,24 @@
 {% block content %}
 <div class="row mb-3">
     <div class="col-md-8 themed-gris-col">
+        {% if quotes %}
         {% for quote in quotes %}
-        <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
-            <span class="text" itemprop="text">{{quote.quote}}</span>
-            <span>by <small class="author" itemprop="author">{{quote.author.fullname}}</small>
-            <a href="{% url 'quotes:author_about' quote.author.id %}">(about)</a>
-            </span>
-            <div class="tags">
-                Tags:
-                {% for tag in quote.tags.all %}
-                <a class="tag" href="{% url 'quotes:find_by_tag' tag.id %}">{{tag}}</a>
-                {% endfor %}
+            <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
+                <span class="text" itemprop="text">{{quote.quote}}</span>
+                <span>by <small class="author" itemprop="author">{{quote.author.fullname}}</small>
+                <a href="{% url 'quotes:author_about' quote.author.id %}">(about)</a>
+                </span>
+                <div class="tags">
+                    Tags:
+                    {% for tag in quote.tags.all %}
+                        <a class="tag" href="{% url 'quotes:find_by_tag' tag.id %}">{{tag}}</a>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
         {% endfor %}
+        {% else %}
+            <p>NO</p>
+        {% endif %}
         <nav>
             <ul class="pager">
                 <li class="previous">
@@ -36,7 +40,7 @@
         <h2>Top 10 Tags</h2>
         {% for tag in top_ten_tags %}
         <div class="tags">
-            <a class="tag" href="{% url 'quotes:find_by_tag' tag.id %}">{{tag.tags__name}}</a>
+            <a class="tag" href="{% url 'quotes:find_by_tag' tag.tags__name %}">{{tag.tags__name}}</a>
         </div>
         {% endfor %}
 
