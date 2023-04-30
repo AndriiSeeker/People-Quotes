@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from dotenv import dotenv_values
+
+config = dotenv_values(".env")
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-%d_^g2d7^6htd-h5sz3y80!oek%74p%mz@q$*4!4)!79$4*ymf"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'purple-breeze-3128.fly.dev']
+ALLOWED_HOSTS = ['localhost', 'purple-breeze-3128.fly.dev', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://purple-breeze-3128.fly.dev'
@@ -88,6 +92,14 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     }
+    # 'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'NAME': 'jjhqhfot',
+    #         'USER': 'jjhqhfot',
+    #         'PASSWORD': 'LzOUePMWnYirZkqCuqbR17es_Eu2SJ4g',
+    #         'HOST': 'horton.db.elephantsql.com',
+    #         'PORT': '5432',
+    #     }
 }
 
 
