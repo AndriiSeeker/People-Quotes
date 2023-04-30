@@ -23,9 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-%d_^g2d7^6htd-h5sz3y80!oek%74p%mz@q$*4!4)!79$4*ymf"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'purple-breeze-3128.fly.dev']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://purple-breeze-3128.fly.dev'
+]
 
 
 # Application definition
