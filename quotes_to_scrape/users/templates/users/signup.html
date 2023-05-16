@@ -1,4 +1,4 @@
-{% extends 'quotes/base.html' %}
+{% extends 'quotes/base1.html' %}
 
 {% block content %}
 
@@ -8,7 +8,7 @@
 <span class="alert alert-danger" role="alert">{{ form.non_field_errors }}</span>
 {% endif %}
 
-<form method="post">
+<form method="post" style="width: 60%;">
     {% csrf_token %}
 
     <div class="row mb-4">

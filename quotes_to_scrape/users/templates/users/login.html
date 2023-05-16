@@ -1,22 +1,26 @@
-{% extends 'quotes/base.html' %}
+{% extends 'quotes/base1.html' %}
 
 {% block content %}
 
 <h2>LogIn</h2>
 
 {% if form.errors %}
-<span class="alert alert-danger" role="alert">{{form.non_field_errors}}</span>
+    <ul class='form-errors'>
+        {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
 {% endif %}
 
 {% if messages %}
 <div>
     {% for message in messages %}
-    <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert">{{ message }}</div>
+        <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert">{{ message }}</div>
     {% endfor %}
 </div>
 {% endif %}
 
-<form method="post">
+<form method="post" style="width: 60%;">
     {% csrf_token %}
 
     <div class="row mb-4">
@@ -32,6 +36,9 @@
     <div class="d-grid gap-2 col-2 mx-auto">
         <button type="submit" class="btn btn-primary btn-sm">Submit</button>
         <button type="reset" class="btn btn-secondary btn-sm">Reset</button>
+    </div>
+    <div class="small text-center">
+        <a href="{% url "users:password_reset" %}" class="text-center"><i>Forgot Password?</i></a>
     </div>
 </form>
 
