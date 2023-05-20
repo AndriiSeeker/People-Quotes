@@ -12,27 +12,26 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
-from dotenv import dotenv_values, load_dotenv
+import environ
 
-load_dotenv()
-config = dotenv_values(".env")
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-%d_^g2d7^6htd-h5sz3y80!oek%74p%mz@q$*4!4)!79$4*ymf"
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'purple-breeze-3128.fly.dev', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', 'purple-breeze-3128.fly.dev', '127.0.0.1', 'quotes-to-scrape.fly.dev']
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://purple-breeze-3128.fly.dev'
+    'https://quotes-to-scrape.fly.dev'
 ]
 
 # Application definition
@@ -44,7 +43,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crispy_forms",
     "quotes",
     "users",
 ]
@@ -87,20 +85,12 @@ WSGI_APPLICATION = "quotes_to_scrape.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'quotes_to_scrape',
-        'USER': 'postgres',
-        'PASSWORD': '2004',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': env('POSTGRES_DB_NAME'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('POSTGRES_DOMAIN'),
+        'PORT': env('POSTGRES_PORT'),
     }
-    # 'default': {
-    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #         'NAME': 'jjhqhfot',
-    #         'USER': 'jjhqhfot',
-    #         'PASSWORD': 'LzOUePMWnYirZkqCuqbR17es_Eu2SJ4g',
-    #         'HOST': 'horton.db.elephantsql.com',
-    #         'PORT': '5432',
-    #     }
 }
 
 # Password validation
@@ -144,11 +134,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.meta.ua'
-EMAIL_PORT = 465
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_HOST_PORT')
 EMAIL_STARTTLS = False
 EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # config.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # config.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')  # config.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')  # config.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

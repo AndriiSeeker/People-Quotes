@@ -7,7 +7,7 @@ from pymongo import MongoClient
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "quotes_to_scrape.settings")
 django.setup()
 
-from quotes.models import Quote, Tag, Author  # noqa
+from quotes.models import Quote, Tag, Author
 
 client = MongoClient("mongodb://localhost")
 

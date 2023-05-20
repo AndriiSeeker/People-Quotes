@@ -83,7 +83,7 @@ def search_form(request):
             quotes = Quote.objects.filter(
                 Q(quote__contains=query)
             )
-            return render(request, "quotes/searchbar.html", context={'quotes': quotes})
+            return render(request, "quotes/searchbar.html", context={'quotes': quotes, 'query': query})
         else:
             return render(request, "quotes/searchbar.html", {})
 

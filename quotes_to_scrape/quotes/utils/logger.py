@@ -4,7 +4,7 @@ log_format = (
     "%(asctime)s [%(levelname)s] - %(name)s - %(funcName)15s:%(lineno)d - %(message)s"
 )
 
-file_handler = logging.FileHandler("quotes/utils/data/application.logs")
+file_handler = logging.FileHandler(r"quotes_to_scrape/quotes/utils/data/application.logs")
 file_handler.setLevel(logging.ERROR)
 file_handler.setFormatter(logging.Formatter(log_format))
 

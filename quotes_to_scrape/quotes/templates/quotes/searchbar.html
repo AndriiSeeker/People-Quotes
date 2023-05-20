@@ -1,7 +1,7 @@
 {% extends 'quotes/base.html' %}
 
 {% block content %}
-    <h2>Search results</h2>
+    <h2>Search results of "{{query}}"</h2>
     <div class="row mb-3">
     <div class="col-md-8 themed-gris-col">
         {% for quote in quotes %}

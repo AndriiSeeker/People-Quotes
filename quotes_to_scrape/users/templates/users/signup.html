@@ -4,9 +4,7 @@
 
 <h2>SignUp</h2>
 
-{% if form.errors %}
-<span class="alert alert-danger" role="alert">{{ form.non_field_errors }}</span>
-{% endif %}
+
 
 <form method="post" style="width: 60%;">
     {% csrf_token %}
