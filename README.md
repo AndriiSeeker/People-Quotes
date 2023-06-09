@@ -17,7 +17,7 @@ Django website
 </ul>  
 <p align="center">
   <img src="https://skillicons.dev/icons?i=py,django,html,css" />
-  <img src="https://skillicons.dev/icons?i=postgres" />
+  <img src="https://skillicons.dev/icons?i=postgres,mongodb" />
   <img src="https://skillicons.dev/icons?i=docker,git" />
 </p>
 
@@ -28,6 +28,7 @@ I used the next technologies and packages
   <li>HTML/CSS</li>
   <li>Bootstrap</li>
   <li>BeautifulSoup4</li>
+  <li>MongoDB</li>
   <li>Postgres</li>
   <li>SQLAlchemy</li>
   <li>Alembic</li>
