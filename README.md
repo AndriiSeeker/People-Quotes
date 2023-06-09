@@ -7,7 +7,7 @@ Django website
 
 <h3>So this is People Quotes and here you can:</h3>
 <ul>
-  <li>Authncation and Reset Password</li>
+  <li>Sign in and Reset Password</li>
   <li>Filter quotes by different tags</li>
   <li>Search for a quote by its text</li>
    <li>Open author page</li>
