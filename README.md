@@ -16,7 +16,7 @@ Django website
 
 </ul>  
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=py,django,js,html,css,bootstrap" />
+  <img src="https://skillicons.dev/icons?i=py,django,html,css" />
   <img src="https://skillicons.dev/icons?i=postgres" />
   <img src="https://skillicons.dev/icons?i=docker,git" />
 </p>
@@ -26,10 +26,10 @@ I used the next technologies and packages
   <li>Python</li>
   <li>Django</li>
   <li>HTML/CSS</li>
-   <li>Bootstrap</li>
+  <li>Bootstrap</li>
   <li>BeautifulSoup4</li>
   <li>Postgres</li>
-   <li>SQLAlchemy</li>
+  <li>SQLAlchemy</li>
   <li>Alembic</li>
   <li>Docker</li>
 </ul>  
