@@ -1,5 +1,4 @@
 # People Quotes [Django]
-Django
 
 <a href="https://quotes-to-scrape.fly.dev/">Visit People Quotes</a>
 
