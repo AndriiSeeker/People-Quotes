@@ -29,7 +29,7 @@ I used the next technologies and packages
   <li>Bootstrap</li>
   <li>BeautifulSoup4</li>
   <li>MongoDB</li>
-  <li>Postgres</li>
+  <li>PostgreSQL</li>
   <li>SQLAlchemy</li>
   <li>Alembic</li>
   <li>Docker</li>
